@@ -1,0 +1,31 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "",
+  "default": "index.html",
+  "scripts": {
+		"parse": "parcel index.html",
+		"build": "parcel build index.html --dist-dir ./dist"
+	},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hargent/Tic-tac-toe.git"
+  },
+  "author": "Hargent",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hargent/Tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/Hargent/Tic-tac-toe#readme",
+ 
+		"devDependencies": {
+		"@parcel/transformer-sass": "^2.8.3",
+		"parcel": "^2.8.3",
+		"process": "^0.11.10",
+		"sass": "^1.58.3"
+	},
+	"dependencies": {
+		"core-js": "^3.28.0",
+		"regenerator-runtime": "^0.13.11"
+	}
+}
