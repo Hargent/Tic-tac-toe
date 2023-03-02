@@ -1,5 +1,6 @@
 const state = {
 	game: {
+		isEnd: false,
 		homeTurn: true,
 		isDraw: false,
 		homeWin: null,
@@ -48,23 +49,37 @@ const state = {
 		],
 	},
 	player: {
-		home: "O",
-		away: "X",
+		home: {
+			name: "O",
+			inputs: [],
+		},
+		away: {
+			name: "X",
+			inputs: [],
+		},
 	},
 };
-const arrayEquals = (a, b) => {
-	return (
-		Array.isArray(a) &&
-		Array.isArray(b) &&
-		a.length === b.length &&
-		a.every((val, index) => val === b[index])
-	);
+const isCOntains = (arr, chk) => {
+	return arr.some(ar => {
+		if (
+			Array.isArray(ar) &&
+			Array.isArray(chk) &&
+			ar.length === chk.length
+		) {
+			let isTrue = [];
+			for (let i = 0; i < ar.length; i++) {
+				isTrue.push(ar[i] === chk[i]);
+			}
+
+			return isTrue.every(el => el === true);
+		}
+		return false;
+	});
 };
 const checkWin = target => {
 	return state.game.winningCombo.some(combination => {
 		return combination.every(index => {
-			// return cellElements[index].classList.contains(currentClass);
-			return arrayEquals(index, target);
+			return isCOntains(target, index);
 		});
 	});
 };
@@ -72,3 +87,7 @@ const checkWin = target => {
 export { state, checkWin };
 
 // check for only current player as true if all the positions of all the trues is in the possibilities then it is a win
+// using some, i only need one list out of all possibilities to be true
+// with every, i need all the elements in the list to return true
+// i need a list of all inputs of each player
+// for every click i check if the list contains any sequence of possibilties using the first three notes above

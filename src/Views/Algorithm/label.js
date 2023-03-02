@@ -28,5 +28,5 @@ const gridArea = (width, height, arr = [], iterH = 0, iterW = 0) => {
 	return arr;
 };
 // console.log(gridArea(7, 7));
-console.log(gridArea(3, 3));
-// export default gridArea;
+// console.log(gridArea(3, 3));
+export default gridArea;

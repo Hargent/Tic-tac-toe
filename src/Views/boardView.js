@@ -10,8 +10,6 @@ class BoardView {
 			const target = cellBtn.dataset.cell
 				.split(",")
 				.map(str => parseInt(str));
-
-			console.log(target);
 			handler(target);
 		});
 	}
