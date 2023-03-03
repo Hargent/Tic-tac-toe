@@ -27,15 +27,13 @@
 
 // 	return arr;
 // };
-/**
- *
- */
-function gridArea(dimensions) {
-	return [...Array(dimensions[0] * dimensions[0])].map((_, i) => [
+
+const gridArea = dimensions => {
+	return [...Array(dimensions[0] * dimensions[1])].map((_, i) => [
 		i % dimensions[0],
-		Math.floor(i / dimensions[0]),
+		Math.floor(i / dimensions[1]),
 	]);
-}
+};
 // console.log(gridArea(7, 7));
-// console.log(gridArea([3, 3]));
+// console.log(gridArea([3, 4]));
 export default gridArea;

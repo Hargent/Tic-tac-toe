@@ -1,5 +1,3 @@
-import gridArea from "./Algorithm/label";
-
 class BoardView {
 	_parentElement = document.querySelector("body");
 
@@ -10,17 +8,31 @@ class BoardView {
 			const target = cellBtn.dataset.cell
 				.split(",")
 				.map(str => parseInt(str));
+
 			handler(target);
 		});
 	}
+	gameHoverHandler(handlerON, handlerOUT) {
+		this._parentElement.addEventListener("mouseover", e => {
+			const cellBtn = e.target.closest(".cell");
+			if (!cellBtn) return;
 
-	render() {
+			handlerON(cellBtn);
+		});
+		this._parentElement.addEventListener("mouseout", e => {
+			const cellBtn = e.target.closest(".cell");
+			if (!cellBtn) return;
+
+			handlerOUT(cellBtn);
+		});
+	}
+
+	render(data) {
 		//
-		const html = this._generateHTML();
+		const html = this._generateHTML(data);
 		this._parentElement.insertAdjacentHTML("afterbegin", html);
 	}
-	_generateHTML() {
-		const labels = gridArea(3, 3);
+	_generateHTML(labels) {
 		return `<div class="board" id="board">
         ${labels
 			.map(label => {

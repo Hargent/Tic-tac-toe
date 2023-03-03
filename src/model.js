@@ -1,60 +1,23 @@
 const state = {
 	game: {
+		data: {
+			dimensions: [3, 3],
+			labels: [],
+			winningCombos: [],
+		},
 		isEnd: false,
-		homeTurn: true,
 		isDraw: false,
-		homeWin: null,
 		winner: null,
-		winningCombo: [
-			[
-				[0, 0],
-				[0, 1],
-				[0, 2],
-			],
-			[
-				[1, 0],
-				[1, 1],
-				[1, 2],
-			],
-			[
-				[2, 0],
-				[2, 1],
-				[2, 2],
-			],
-			[
-				[0, 0],
-				[1, 0],
-				[2, 0],
-			],
-			[
-				[0, 1],
-				[1, 1],
-				[2, 1],
-			],
-			[
-				[0, 2],
-				[1, 2],
-				[2, 2],
-			],
-			[
-				[0, 0],
-				[1, 1],
-				[2, 2],
-			],
-			[
-				[0, 2],
-				[1, 1],
-				[2, 0],
-			],
-		],
 	},
 	player: {
+		homeWin: null,
+		homeTurn: false,
 		home: {
-			name: "O",
+			name: "circle",
 			inputs: [],
 		},
 		away: {
-			name: "X",
+			name: "x",
 			inputs: [],
 		},
 	},
@@ -76,15 +39,19 @@ const isCOntains = (arr, chk) => {
 		return false;
 	});
 };
-const checkWin = target => {
-	return state.game.winningCombo.some(combination => {
+const checkWin = () => {
+	const target = state.player.homeTurn
+		? state.player.home.inputs
+		: state.player.away.inputs;
+
+	return state.game.data.winningCombos.some(combination => {
 		return combination.every(index => {
 			return isCOntains(target, index);
 		});
 	});
 };
 
-export { state, checkWin };
+export { state, checkWin, isCOntains };
 
 // check for only current player as true if all the positions of all the trues is in the possibilities then it is a win
 // using some, i only need one list out of all possibilities to be true
