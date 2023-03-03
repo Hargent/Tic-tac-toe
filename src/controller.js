@@ -10,16 +10,15 @@ const updateData = () => {
 	gameView._getGameData(model.state);
 };
 const controlGameClicks = target => {
-	model.state.player.homeTurn
-		? model.state.player.home.inputs.push(target)
-		: model.state.player.away.inputs.push(target);
-
+	model.saveInputs(target);
 	playerView.placeMark(target);
-	model.state.game.isEnd = model.checkWin();
-	gameView.gamePlay();
+	model.gameStatus();
+	if (model.state.game.isEnd) {
+		gameView.render(model.state.player.homeWin);
+	}
 	updateData();
-	gameView._render(model.state.player.homeWin);
 };
+
 const controlGameHoverON = target => {
 	playerView.setBoardHoverClass(target);
 };

@@ -87,15 +87,9 @@ function setBoardHoverClass() {
 }
 // check win on click
 function checkWin(currentClass) {
-	const fin = WINNING_COMBINATIONS.some(combination => {
-		const mid = combination.every(index => {
-			const stt = cellElements[index].classList.contains(currentClass);
-			console.log(stt);
-			return stt;
+	return WINNING_COMBINATIONS.some(combination => {
+		return combination.every(index => {
+			return cellElements[index].classList.contains(currentClass);
 		});
-		console.log(mid);
-		return mid;
 	});
-	console.log(fin);
-	return fin;
 }

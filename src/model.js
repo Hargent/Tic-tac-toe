@@ -7,7 +7,6 @@ const state = {
 		},
 		isEnd: false,
 		isDraw: false,
-		winner: null,
 	},
 	player: {
 		homeWin: null,
@@ -39,6 +38,23 @@ const isCOntains = (arr, chk) => {
 		return false;
 	});
 };
+
+const saveInputs = target => {
+	const isSaved = state.player.homeTurn
+		? isCOntains(state.player.home.inputs, target)
+		: isCOntains(state.player.away.inputs, target);
+
+	if (isSaved) {
+		state.player.homeTurn = state.player.homeTurn;
+		return;
+	}
+	if (state.player.homeWin !== null) return;
+	state.player.homeTurn = !state.player.homeTurn;
+
+	state.player.homeTurn
+		? state.player.home.inputs.push(target)
+		: state.player.away.inputs.push(target);
+};
 const checkWin = () => {
 	const target = state.player.homeTurn
 		? state.player.home.inputs
@@ -50,8 +66,39 @@ const checkWin = () => {
 		});
 	});
 };
+const checkDraw = () => {
+	const target = state.player.homeTurn
+		? state.player.home.inputs
+		: state.player.away.inputs;
 
-export { state, checkWin, isCOntains };
+	return state.game.data.winningCombos.some(combination => {
+		return combination.every(index => {
+			return isCOntains(target, index);
+		});
+	});
+};
+const gameStatus = () => {
+	let currentPlayer;
+	if (state.player.homeTurn === null) return;
+	state.player.homeTurn
+		? (currentPlayer = state.player.away.name)
+		: (currentPlayer = state.player.home.name);
+
+	if (checkWin()) {
+		console.log(`${currentPlayer} wins`);
+		state.player.homeWin = currentPlayer;
+		state.player.homeTurn = null;
+		state.game.isEnd = true;
+	} else if (checkDraw()) {
+		console.log("draw");
+		state.player.homeWin = "draw";
+		state.player.homeTurn = null;
+		state.game.isEnd = true;
+		state.game.isDraw = true;
+	}
+};
+
+export { state, gameStatus, isCOntains, saveInputs };
 
 // check for only current player as true if all the positions of all the trues is in the possibilities then it is a win
 // using some, i only need one list out of all possibilities to be true
