@@ -1,51 +1,51 @@
+/**
+ * Game class that controls the game behaviour
+ */
 class GameView {
 	_data;
 	_parentElement = document.querySelector("body");
-
+	/**
+	 *
+	 * @param {obj{}} data  Object of Game data
+	 */
 	_getGameData(data) {
 		this._data = data;
 	}
-	// gamePlay(check) {
-	// 	// check for winner
-
-	// 	if (check) {
-	// 		if (this._data.player.homeTurn) {
-	// 			this._data.game.winner = this._data.player.away.name;
-	// 			this._data.player.homeWin = false;
-	// 		} else {
-	// 			this._data.game.winner = this._data.player.home.name;
-	// 			this._data.player.homeWin = true;
-	// 		}
-	// 	} else if (!this._data.game.isEnd) {
-	// 		// check draw
-	// 		const homeLength = this._data.player.home.inputs.length;
-	// 		const awayLength = this._data.player.away.inputs.length;
-	// 		const gameLength = this._data.game.data.dimensions.reduce(
-	// 			(st, el) => st * el
-	// 		);
-
-	// 		if (homeLength + awayLength === gameLength) {
-	// 			this._data.game.isDraw = true;
-	// 			this._data.game.winner = "draw";
-	// 		}
-	// 	}
-	// 	if (this._data.game.winner === null) return;
-	// 	console.log(this._data.game.winner);
-	// 	return "";
-	// }
-
+	/**
+	 *
+	 * @param { ()=>{}} handler A controller handler function that is called to handle the click event
+	 */
+	handleRestartBtn(handler) {
+		this._parentElement.addEventListener("click", e => {
+			const restartBtn = e.target?.closest("#restartButton");
+			if (!restartBtn) return;
+			this._parentElement.innerHTML = "";
+			handler(true);
+		});
+	}
+	/**
+	 *
+	 * @param {obj} data The data to be rendered to the parent element
+	 */
 	render(data) {
 		this._clear();
 		const html = this._generateHTML(data);
 		this._parentElement.insertAdjacentHTML("afterbegin", html);
 	}
+	/**
+	 * Clears the parent element's content before another rendering takes place
+	 */
 	_clear() {
 		this._parentElement.innerHTML = "";
 	}
-
+	/**
+	 *
+	 * @param {obj} data The game status / winner/draw
+	 * @returns {string} The HTML string to be rendered
+	 */
 	_generateHTML(data) {
 		// const winningMessage = document.getElementById("winningMessageText");
-		console.log(data);
+
 		if (data === "draw") {
 			return `
 <div class="winning-message" id="winningMessage">

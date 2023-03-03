@@ -1,3 +1,6 @@
+/**
+ * Algorithm for generating all possible linear combination of points in a 2D grid
+ */
 const getAllPointCombos = dimensions => {
 	let combinations = [];
 	for (let i = 0; i < dimensions[0]; i++) {
@@ -38,6 +41,3 @@ const getAllPointCombos = dimensions => {
 	return combinations;
 };
 export default getAllPointCombos;
-// console.time("t11");
-// console.log(getAllPointCombinations([3, 3]));
-// console.timeEnd("t11");

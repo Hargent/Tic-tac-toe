@@ -1,7 +1,13 @@
 import getAllPointCombos from "./results";
 import gridArea from "./label";
 
+/**
+ * Algorithm Class that generates the game data
+ */
 class GameAlgo {
+	/**
+	 * Generates all labels and possible combos
+	 */
 	_gameAlgo(dimensions) {
 		const labels = gridArea(dimensions);
 
@@ -10,8 +16,5 @@ class GameAlgo {
 		return [labels, combos];
 	}
 }
-
-//take dimension
-// generate label and generate possible combos
 
 export default new GameAlgo();
